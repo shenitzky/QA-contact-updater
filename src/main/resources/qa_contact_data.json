@@ -1,0 +1,9 @@
+{
+	"startDay": "01-01-2019",
+	"calendarID": "googleCalendarID",
+	"numberOfCycles": "3",
+	"teamMembers": [
+		"memberMail@redhat.com",
+		"memberMail@redhat.com"
+	]
+}
