@@ -107,36 +107,43 @@ public class AddQaContactCyclesToStorageCalendar {
     }
 
     private static Event createNewQaContactEvent(Date startDate, int daysToAdd, int index, String member) {
+        //Create new Event
         Event qaContactEvent = new Event();
         qaContactEvent.setDescription("QA contact");
 
+        //Calculate the event start day
         daysToAdd = daysToAdd + (7 * index);
         DateTime startDateTime = new DateTime(addDays(startDate, daysToAdd));
         EventDateTime start = new EventDateTime()
                 .setDateTime(startDateTime);
         qaContactEvent.setStart(start);
 
+        //Calculate the event end day
         DateTime endDateTime = new DateTime(addDays(startDate, daysToAdd + 7));
         EventDateTime end = new EventDateTime()
                 .setDateTime(endDateTime);
         qaContactEvent.setEnd(end);
 
+        //Add the event attendees
         EventAttendee[] attendees = new EventAttendee[] {
                 new EventAttendee().setEmail(member),
         };
-
         qaContactEvent.setAttendees(Arrays.asList(attendees));
 
+        //Add event reminder
         EventReminder[] reminderOverrides = new EventReminder[] {
                 new EventReminder().setMethod("email").setMinutes(24 * 60),
         };
-
         Event.Reminders reminders = new Event.Reminders()
                 .setUseDefault(false)
                 .setOverrides(Arrays.asList(reminderOverrides));
         qaContactEvent.setReminders(reminders);
 
+        //Add event summery
         qaContactEvent.setSummary("QA contact - " + member);
+
+        //Set event to transparent - not busy
+        qaContactEvent.setTransparency("transparent");
 
         System.out.println("new event: " + qaContactEvent.toString());
         return qaContactEvent;
@@ -150,7 +157,7 @@ public class AddQaContactCyclesToStorageCalendar {
     }
 
     private static void init(){
-        // Load QA contact needed data from file.
+        // Load QA contact needed data from the JSON file.
         InputStream teamMembersIn = AddQaContactCyclesToStorageCalendar.class.getResourceAsStream(TEAM_MEMBERS_FILE_PATH);
         try {
             QA_CONTACT_DATA = QaContactData.load(JSON_FACTORY, new InputStreamReader(teamMembersIn));
