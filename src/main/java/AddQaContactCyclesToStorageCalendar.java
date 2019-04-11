@@ -97,7 +97,11 @@ public class AddQaContactCyclesToStorageCalendar {
         int index = 0;
         for (String member : QA_CONTACT_DATA.getTeamMembers()) {
             try {
-                service.events().insert(QA_CONTACT_DATA.getCalendarID(), createNewQaContactEvent(startDate, daysToAdd, index, member)).execute();
+                service.events()
+                        .insert(QA_CONTACT_DATA.getCalendarID(),
+                                createNewQaContactEvent(startDate, daysToAdd, index, member))
+                        .setSendNotifications(Boolean.TRUE)
+                        .execute();
             } catch (IOException e) {
                 System.out.println("Failed to add QA contact to - " + member);
                 e.printStackTrace();
