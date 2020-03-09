@@ -63,17 +63,16 @@ public class AddQaContactCyclesToStorageCalendar {
                 .setAccessType("offline")
                 .build();
         LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
-        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
+        return new AuthorizationCodeInstalledApp(flow, receiver).authorize(QA_CONTACT_DATA.getUserName());
     }
 
     public static void main(String... args) throws IOException, GeneralSecurityException {
+        initQaContactData();
         // Build a new authorized API client service.
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
-
-        init();
 
         addQaContactsToCalendar(service);
     }
@@ -160,7 +159,7 @@ public class AddQaContactCyclesToStorageCalendar {
         return cal.getTime();
     }
 
-    private static void init(){
+    private static void initQaContactData(){
         // Load QA contact needed data from the JSON file.
         InputStream teamMembersIn = AddQaContactCyclesToStorageCalendar.class.getResourceAsStream(TEAM_MEMBERS_FILE_PATH);
         try {

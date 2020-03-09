@@ -1,5 +1,6 @@
 {
 	"startDay": "01-01-2019",
+	"userName": "OAuth client",
 	"calendarID": "googleCalendarID",
 	"numberOfCycles": "3",
 	"teamMembers": [

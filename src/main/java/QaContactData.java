@@ -9,6 +9,8 @@ import com.google.api.client.util.Key;
 public class QaContactData extends GenericJson {
     @Key("startDay")
     private String startDay;
+    @Key("userName")
+    private String userName;
     @Key("calendarID")
     private String calendarID;
     @Key("numberOfCycles")
@@ -24,6 +26,14 @@ public class QaContactData extends GenericJson {
 
     public void setStartDay(String startDay) {
         this.startDay = startDay;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getCalendarID() {
@@ -59,6 +69,7 @@ public class QaContactData extends GenericJson {
     public String toString() {
         return "QaContactData{" +
                 "startDay='" + startDay + '\'' +
+                ", userName='" + userName + '\'' +
                 ", calendarID='" + calendarID + '\'' +
                 ", numberOfCycles='" + numberOfCycles + '\'' +
                 ", teamMembers=" + teamMembers +
